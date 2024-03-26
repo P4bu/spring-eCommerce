@@ -33,7 +33,7 @@ public class UsuarioController  {
         usuarioService.deleteUsuario(id);
     }
     @PostMapping("/update")
-    public void updateUsuario(Usuario usuario){
+    public void updateUsuario(@RequestBody Usuario usuario){
         usuarioService.updateUsuario(usuario);
     }
 }

@@ -35,7 +35,7 @@ public class ProductoController  {
         productoService.delete(id);
     }
     @PostMapping("/update")
-    public void update(Producto producto){
+    public void update(@RequestBody Producto producto){
         productoService.update(producto);
     }
 
