@@ -3,7 +3,9 @@ package com.spring.ecommerce.controller;
 import com.spring.ecommerce.model.Producto;
 import com.spring.ecommerce.model.Usuario;
 import com.spring.ecommerce.service.UsuarioService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +34,12 @@ public class UsuarioController  {
     public void deleteUsuario(@PathVariable("id") Integer id){
         usuarioService.deleteUsuario(id);
     }
-    @PostMapping("/update")
-    public void updateUsuario(@RequestBody Usuario usuario){
-        usuarioService.updateUsuario(usuario);
+    @PatchMapping("/update/{id}")
+    public void updateUsuario(@PathVariable("id") Integer id, @RequestBody Usuario usuario, Model model){
+        Usuario usuario1 = new Usuario();
+        Optional<Usuario> optionalUsuario = usuarioService.getUsuario(id);
+        usuario1 = optionalUsuario.get();
+        model.addAttribute("usuario1", usuario1);
+        usuarioService.saveUsuario(usuario);
     }
 }

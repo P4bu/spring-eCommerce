@@ -4,6 +4,7 @@ import com.spring.ecommerce.model.Producto;
 import com.spring.ecommerce.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +35,13 @@ public class ProductoController  {
     public void delete(@PathVariable("id") Integer id){
         productoService.delete(id);
     }
-    @PostMapping("/update")
-    public void update(@RequestBody Producto producto){
-        productoService.update(producto);
+    @PatchMapping("/update/{id}")
+    public void update(@PathVariable("id") Integer id, @RequestBody Producto producto, Model model){
+        Producto producto1 = new Producto();
+        Optional<Producto> optionalProducto= productoService.getProducto(id);
+        producto1 = optionalProducto.get();
+        model.addAttribute("producto1", producto1);
+        productoService.save(producto);
     }
 
 
